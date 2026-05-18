@@ -2,6 +2,7 @@
   "expo": {
     "name": "marketplace-mobile",
     "slug": "marketplace-mobile",
+    "scheme": "marketplace-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,6 +13,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+
+    "experiments": {
+      "typedRoutes": true
+    },
+
     "ios": {
       "supportsTablet": true
     },
@@ -26,6 +32,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["expo-router"]
   }
 }
