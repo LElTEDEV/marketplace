@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useUserStore } from "../../shared/store/user-store";
 import { RegisterFormData, registerScheme } from "./register.scheme";
 import { useRegisterMutation } from "../../shared/queries/auth/use-register.mutation";
 
 export const useRegisterViewModel = () => {
   const userRegisterMutation = useRegisterMutation();
+  const { setSession, user } = useUserStore();
 
   const {
     control,
@@ -15,7 +17,7 @@ export const useRegisterViewModel = () => {
     resolver: yupResolver(registerScheme),
     defaultValues: {
       name: "Igor Teste",
-      email: "teste@teste.com",
+      email: "teste@teste2.com",
       password: "123123",
       confirmPassword: "123123",
       phone: "19999999999",
@@ -25,8 +27,17 @@ export const useRegisterViewModel = () => {
   const onSubmit = handleSubmit(async (userData) => {
     const { confirmPassword, ...registerData } = userData;
 
-    await userRegisterMutation.mutateAsync(registerData);
+    const mutationResponse =
+      await userRegisterMutation.mutateAsync(registerData);
+
+    setSession({
+      token: mutationResponse.token,
+      refreshToken: mutationResponse.refreshToken,
+      userData: mutationResponse.user,
+    });
   });
+
+  console.log(user);
 
   return { control, errors, onSubmit };
 };
