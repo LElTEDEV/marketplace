@@ -7,7 +7,7 @@ import { useRegisterMutation } from "../../shared/queries/auth/use-register.muta
 
 export const useRegisterViewModel = () => {
   const userRegisterMutation = useRegisterMutation();
-  const { setSession, user } = useUserStore();
+  const { setSession } = useUserStore();
 
   const {
     control,
@@ -17,7 +17,7 @@ export const useRegisterViewModel = () => {
     resolver: yupResolver(registerScheme),
     defaultValues: {
       name: "Igor Teste",
-      email: "teste@teste2.com",
+      email: "teste@teste3.com",
       password: "123123",
       confirmPassword: "123123",
       phone: "19999999999",
@@ -33,11 +33,9 @@ export const useRegisterViewModel = () => {
     setSession({
       token: mutationResponse.token,
       refreshToken: mutationResponse.refreshToken,
-      userData: mutationResponse.user,
+      user: mutationResponse.user,
     });
   });
-
-  console.log(user);
 
   return { control, errors, onSubmit };
 };
