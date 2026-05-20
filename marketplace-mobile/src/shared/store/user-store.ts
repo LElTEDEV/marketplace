@@ -32,7 +32,12 @@ export const useUserStore = create<UserStore>()(
       token: null,
       refreshToken: null,
 
-      logout: () => {},
+      logout: () =>
+        set({
+          user: null,
+          token: null,
+          refreshToken: null,
+        }),
       setSession: (sessionData) => set({ ...sessionData }),
       updateTokens: (updateTokensData) => set({ ...updateTokensData }),
     }),
