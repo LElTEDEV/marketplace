@@ -28,7 +28,7 @@ export const AppInput: FC<AppInputProps> = ({
   containerClassName,
   value,
   isError,
-  secureTextEntry,
+  secureTextEntry = false,
   onBlur,
   onFocus,
   onChangeText,
@@ -82,12 +82,18 @@ export const AppInput: FC<AppInputProps> = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           className={styles.input()}
+          secureTextEntry={showPassword}
           {...textInputProps}
         />
 
-        <TouchableOpacity>
-          <Ionicons size={22} name="eye-off-outline" />
-        </TouchableOpacity>
+        {secureTextEntry && (
+          <TouchableOpacity activeOpacity={0.7} onPress={handlePasswordToggle}>
+            <Ionicons
+              size={22}
+              name={showPassword ? "eye-outline" : "eye-off-outline"}
+            />
+          </TouchableOpacity>
+        )}
       </Pressable>
 
       {error && (
