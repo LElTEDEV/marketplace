@@ -47,7 +47,6 @@ export const AppInput: FC<AppInputProps> = ({
     handleTextChange,
     isFocused,
   } = useAppInputViewModel({
-    error,
     onBlur,
     onFocus,
     isError: !!error,
@@ -60,6 +59,8 @@ export const AppInput: FC<AppInputProps> = ({
 
   const styles = appInputVariants({
     isFocused,
+    isDisabled,
+    isError: !!error,
   });
 
   return (
